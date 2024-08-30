@@ -1,0 +1,1 @@
+export const START_INVOICE_NUMBER = 1337

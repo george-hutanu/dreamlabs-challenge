@@ -1,0 +1,117 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateCustomerDTO {
+  name: String!
+}
+
+input CreateInvoiceDTO {
+  amount: Float!
+  currency: String!
+  customerId: String
+  date: DateTime = "2024-08-29T19:10:54.637Z"
+  isStorno: Boolean
+  projectId: String
+  status: String = "UNPAID"
+}
+
+input CreateProjectDTO {
+  name: String!
+}
+
+type Customer {
+  invoices: [Invoice!]!
+  name: String!
+}
+
+type CustomerDTO {
+  createdAt: String!
+  id: ID!
+  invoices: [InvoiceDTO!]!
+  name: String!
+  updatedAt: String!
+}
+
+input CustomerIdDTO {
+  id: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Invoice {
+  amount: Float!
+  currency: String!
+  customer: Customer!
+  date: DateTime!
+  invoiceNumber: Int!
+  isStorno: Boolean!
+  project: Project!
+  status: String!
+}
+
+type InvoiceDTO {
+  amount: Float!
+  createdAt: String!
+  currency: String!
+  customer: CustomerDTO!
+  date: DateTime!
+  id: ID!
+  invoiceNumber: Int!
+  isStorno: Boolean!
+  project: ProjectDTO!
+  status: String!
+  updatedAt: String!
+}
+
+input InvoiceIdDTO {
+  id: String!
+}
+
+type Mutation {
+  createCustomer(createCustomerInput: CreateCustomerDTO!): CustomerDTO!
+  createInvoice(createInvoiceData: CreateInvoiceDTO!): InvoiceDTO!
+  createProject(createProject: CreateProjectDTO!): ProjectDTO!
+  markInvoiceAsPaid(idPayload: InvoiceIdDTO!): InvoiceDTO!
+  markInvoiceAsUnpaid(idPayload: InvoiceIdDTO!): InvoiceDTO!
+  reverseInvoice(idPayload: InvoiceIdDTO!): InvoiceDTO!
+  updateInvoice(updateInvoiceData: UpdateInvoiceDTO!): InvoiceDTO!
+}
+
+type Project {
+  invoices: [Invoice!]!
+  name: String!
+}
+
+type ProjectDTO {
+  createdAt: String!
+  id: ID!
+  invoices: [InvoiceDTO!]!
+  name: String!
+  updatedAt: String!
+}
+
+input ProjectIdDTO {
+  id: String!
+}
+
+type Query {
+  getCustomer(idPayload: CustomerIdDTO!): CustomerDTO!
+  getInvoiceByInvoiceNumber(invoiceNumber: Float!): InvoiceDTO!
+  getInvoices(limit: Float!): [InvoiceDTO!]!
+  getOne(idPayload: ProjectIdDTO!): ProjectDTO!
+}
+
+input UpdateInvoiceDTO {
+  amount: Float
+  currency: String
+  customerId: String
+  date: DateTime = "2024-08-29T19:10:54.637Z"
+  id: String!
+  isStorno: Boolean
+  projectId: String
+  status: String = "UNPAID"
+}
